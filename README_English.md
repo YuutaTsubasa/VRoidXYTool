@@ -4,9 +4,18 @@
 
 Extension Plugin for VRoid Studio
 
-## Why is the plug-in unavailable after VRoid Studio 1.26.1?
+## VRoid Studio 1.26.1 and Later IL2CPP Support
 
-Starting from 1.26.1, vroid studio changed mono to il2cpp, which resulted in all plugins becoming invalid and difficult to fix. I will try to remake the plugin under il2cpp, but it is also possible to permanently stop updating. If you want to continue using plugins, you can download version 1.26.0 of vroid studio from the official website.
+Starting from version 0.8.3, this plugin now supports VRoid Studio's IL2CPP version (1.26.1 and higher).
+
+### Installation Requirements
+1. Install **BepInEx IL2CPP** version (not the regular Mono version)
+2. Ensure BepInEx has generated IL2CPP interop assemblies (automatically generated after running VRoid Studio for the first time)
+3. Place the plugin DLL in the `BepInEx\plugins` folder
+
+### Important Notes
+- If you are using VRoid Studio 1.26.0 or earlier Mono versions, please use plugin version 0.8.2 or earlier
+- IL2CPP and Mono plugin versions are **NOT** interchangeable
 
 ## Why is the plug-in unavailable after VRoid Studio 1.18?
 You can edit VRoid Studio\BepInEx\config\BepInEx.cfg, change `HideManagerGameObject = false` to `HideManagerGameObject = true`, then VRoidXYTool can work on the new version VRoid Studio.
