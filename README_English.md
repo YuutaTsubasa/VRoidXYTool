@@ -4,9 +4,30 @@
 
 Extension Plugin for VRoid Studio
 
-## Why is the plug-in unavailable after VRoid Studio 1.26.1?
+## VRoid Studio 1.26.1 and Later IL2CPP Support
 
-Starting from 1.26.1, vroid studio changed mono to il2cpp, which resulted in all plugins becoming invalid and difficult to fix. I will try to remake the plugin under il2cpp, but it is also possible to permanently stop updating. If you want to continue using plugins, you can download version 1.26.0 of vroid studio from the official website.
+Starting from version 0.8.3, this plugin now supports VRoid Studio's IL2CPP version (1.26.1 and higher).
+
+### Installation Requirements
+
+**IMPORTANT: VRoid Studio uses Unity 2022/2023, which requires BepInEx with IL2CPP metadata version 31 support**
+
+1. Download and install **BepInEx IL2CPP Bleeding Edge** version:
+   - Visit [BepInEx Bleeding Edge Build Server](https://builds.bepinex.dev/projects/bepinex_be)
+   - Download the latest `BepInEx_UnityIL2CPP_x64` (bleeding edge) build
+   - **DO NOT use** BepInEx 6.0.0-pre.2 or earlier stable releases - they only support metadata versions 23-29
+   
+2. Install BepInEx:
+   - Extract to your VRoid Studio installation directory
+   - Run VRoid Studio once to let BepInEx generate IL2CPP interop assemblies
+   - If you see "Unsupported metadata version found! We support 23-29, got 31" error, your BepInEx version is too old
+
+3. Place the plugin DLL in the `BepInEx\plugins` folder
+
+### Important Notes
+- If you are using VRoid Studio 1.26.0 or earlier Mono versions, please use plugin version 0.8.2 or earlier
+- IL2CPP and Mono plugin versions are **NOT** interchangeable
+- You must use BepInEx bleeding edge builds that support metadata version 31
 
 ## Why is the plug-in unavailable after VRoid Studio 1.18?
 You can edit VRoid Studio\BepInEx\config\BepInEx.cfg, change `HideManagerGameObject = false` to `HideManagerGameObject = true`, then VRoidXYTool can work on the new version VRoid Studio.
