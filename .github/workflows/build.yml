@@ -1,0 +1,145 @@
+name: Build VRoidXYTool
+
+on:
+  push:
+    branches: [ main, master, copilot/** ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.3
+      
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1
+      
+    - name: Check for lib dependencies
+      shell: powershell
+      run: |
+        Write-Host "Checking for build dependencies..."
+        $hasCore = Test-Path "lib/BepInEx/core/*.dll"
+        $hasInterop = Test-Path "lib/BepInEx/interop/*.dll"
+        
+        if (-not $hasCore -or -not $hasInterop) {
+          Write-Host "::warning::Build dependencies not found in lib/ folder."
+          Write-Host "::warning::See lib/README.md for instructions on how to populate the lib folder."
+          Write-Host "The build will attempt to download BepInEx core DLLs automatically."
+        }
+        
+    - name: Download BepInEx IL2CPP (core DLLs)
+      shell: powershell
+      run: |
+        Write-Host "Downloading BepInEx IL2CPP for core dependencies..."
+        $bepinexUrl = "https://github.com/BepInEx/BepInEx/releases/download/v6.0.0-pre.2/BepInEx_UnityIL2CPP_x64_6.0.0-pre.2.zip"
+        $bepinexZip = "bepinex.zip"
+        
+        try {
+          Invoke-WebRequest -Uri $bepinexUrl -OutFile $bepinexZip -UseBasicParsing
+          Expand-Archive -Path $bepinexZip -DestinationPath "bepinex_temp" -Force
+          
+          # Copy BepInEx core DLLs if not already present
+          if (-not (Test-Path "lib/BepInEx/core/*.dll")) {
+            New-Item -ItemType Directory -Force -Path "lib/BepInEx/core" | Out-Null
+            Copy-Item -Path "bepinex_temp/BepInEx/core/*.dll" -Destination "lib/BepInEx/core/" -Force -ErrorAction SilentlyContinue
+            Write-Host "BepInEx core DLLs copied to lib/BepInEx/core/"
+          }
+        } catch {
+          Write-Host "::warning::Failed to download BepInEx: $_"
+        }
+        
+    - name: List available dependencies
+      shell: powershell
+      run: |
+        Write-Host "Available dependencies in lib/:"
+        if (Test-Path "lib/BepInEx/core") {
+          Write-Host "BepInEx/core:"
+          Get-ChildItem "lib/BepInEx/core" -Filter "*.dll" | ForEach-Object { Write-Host "  - $($_.Name)" }
+        }
+        if (Test-Path "lib/BepInEx/interop") {
+          Write-Host "BepInEx/interop:"
+          Get-ChildItem "lib/BepInEx/interop" -Filter "*.dll" | ForEach-Object { Write-Host "  - $($_.Name)" }
+        }
+      
+    - name: Update project references for CI build
+      shell: powershell
+      run: |
+        Write-Host "Updating project file paths for CI environment..."
+        $csprojPath = "VRoidXYTool/VRoidXYTool.csproj"
+        $content = Get-Content $csprojPath -Raw
+        
+        # Store original for comparison
+        $originalContent = $content
+        
+        # Update all paths to use relative lib folder
+        $content = $content -replace '\.\.\\\.\.\\\.\.\\Program Files \(x86\)\\Steam\\steamapps\\common\\VRoid Studio\\BepInEx\\core\\', '..\lib\BepInEx\core\'
+        $content = $content -replace '\.\.\\\.\.\\\.\.\\Program Files \(x86\)\\Steam\\steamapps\\common\\VRoid Studio\\BepInEx\\interop\\', '..\lib\BepInEx\interop\'
+        
+        # Update output path for Release builds
+        $content = $content -replace '\.\.\\\.\.\\\.\.\\Program Files %28x86%29\\Steam\\steamapps\\common\\VRoid Studio\\BepInEx\\plugins\\', 'bin\Release\'
+        
+        if ($content -ne $originalContent) {
+          Set-Content -Path $csprojPath -Value $content
+          Write-Host "Project file updated for CI build"
+        } else {
+          Write-Host "No changes needed to project file"
+        }
+        
+    - name: Restore NuGet packages
+      run: nuget restore VRoidXYTool.sln
+      continue-on-error: true
+      
+    - name: Build solution (Release)
+      shell: powershell
+      run: |
+        Write-Host "Building VRoidXYTool..."
+        msbuild VRoidXYTool.sln /p:Configuration=Release /p:Platform="Any CPU" /t:VRoidXYTool /v:minimal
+      continue-on-error: true
+      id: build_step
+      
+    - name: Check build result
+      shell: powershell
+      run: |
+        $dllPath = "VRoidXYTool/bin/Release/VRoidXYTool.dll"
+        
+        if (Test-Path $dllPath) {
+          $dll = Get-Item $dllPath
+          Write-Host "::notice::Build successful! VRoidXYTool.dll created"
+          Write-Host "DLL Size: $($dll.Length) bytes"
+          Write-Host "Modified: $($dll.LastWriteTime)"
+          exit 0
+        } else {
+          Write-Host "::error::Build failed - VRoidXYTool.dll not found"
+          Write-Host ""
+          Write-Host "To fix this, you need to populate lib/BepInEx/interop/ with DLLs from a working VRoid Studio installation:"
+          Write-Host "  1. Install VRoid Studio 1.26.1+ with BepInEx IL2CPP"
+          Write-Host "  2. Run VRoid Studio once to generate interop assemblies"
+          Write-Host "  3. Copy DLLs from 'VRoid Studio/BepInEx/interop/' to 'lib/BepInEx/interop/'"
+          Write-Host "  4. Commit the DLLs (or use Git LFS) and push"
+          Write-Host ""
+          Write-Host "See lib/README.md for detailed instructions"
+          exit 1
+        }
+      
+    - name: Upload VRoidXYTool.dll
+      if: success()
+      uses: actions/upload-artifact@v4
+      with:
+        name: VRoidXYTool
+        path: VRoidXYTool/bin/Release/VRoidXYTool.dll
+        if-no-files-found: error
+        
+    - name: Upload full build output
+      if: success()
+      uses: actions/upload-artifact@v4
+      with:
+        name: VRoidXYTool-Full-Build
+        path: VRoidXYTool/bin/Release/
+        if-no-files-found: warn
