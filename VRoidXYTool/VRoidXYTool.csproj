@@ -41,13 +41,21 @@
       <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\BepInEx\core\BepInEx.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Il2CppInterop.Runtime">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\BepInEx\core\Il2CppInterop.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Il2CppInterop.Common">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\BepInEx\core\Il2CppInterop.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="MToon">
-      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\VRoidStudio_Data\Managed\MToon.dll</HintPath>
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\BepInEx\interop\MToon.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\VRoidStudio_Data\Managed\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\BepInEx\interop\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System">
@@ -75,71 +83,71 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\VRoidStudio_Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\BepInEx\interop\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.AnimationModule">
-      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\VRoidStudio_Data\Managed\UnityEngine.AnimationModule.dll</HintPath>
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\BepInEx\interop\UnityEngine.AnimationModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.AssetBundleModule">
-      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\VRoidStudio_Data\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\BepInEx\interop\UnityEngine.AssetBundleModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\VRoidStudio_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\BepInEx\interop\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.ImageConversionModule">
-      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\VRoidStudio_Data\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\BepInEx\interop\UnityEngine.ImageConversionModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.IMGUIModule">
-      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\VRoidStudio_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\BepInEx\interop\UnityEngine.IMGUIModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.InputLegacyModule">
-      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\VRoidStudio_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\BepInEx\interop\UnityEngine.InputLegacyModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.PhysicsModule">
-      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\VRoidStudio_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\BepInEx\interop\UnityEngine.PhysicsModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\VRoidStudio_Data\Managed\UnityEngine.UI.dll</HintPath>
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\BepInEx\interop\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UIModule">
-      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\VRoidStudio_Data\Managed\UnityEngine.UIModule.dll</HintPath>
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\BepInEx\interop\UnityEngine.UIModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityTablet">
-      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\VRoidStudio_Data\Managed\UnityTablet.dll</HintPath>
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\BepInEx\interop\UnityTablet.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="VRoid.Studio-nstrip">
-      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\VRoidStudio_Data\Managed\VRoid.Studio-nstrip.dll</HintPath>
+    <Reference Include="VRoid.Studio">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\BepInEx\interop\VRoid.Studio.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="VRoid.UI-nstrip">
-      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\VRoidStudio_Data\Managed\VRoid.UI-nstrip.dll</HintPath>
+    <Reference Include="VRoid.UI">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\BepInEx\interop\VRoid.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="VRoidCore-nstrip">
-      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\VRoidStudio_Data\Managed\VRoidCore-nstrip.dll</HintPath>
+    <Reference Include="VRoidCore">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\BepInEx\interop\VRoidCore.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VRoidCore.Protobuf">
-      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\VRoidStudio_Data\Managed\VRoidCore.Protobuf.dll</HintPath>
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\BepInEx\interop\VRoidCore.Protobuf.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VRoidSDK">
-      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\VRoidStudio_Data\Managed\VRoidSDK.dll</HintPath>
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\BepInEx\interop\VRoidSDK.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="VRoidStudio-nstrip">
-      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\VRoidStudio_Data\Managed\VRoidStudio-nstrip.dll</HintPath>
+    <Reference Include="VRoidStudio">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\VRoid Studio\BepInEx\interop\VRoidStudio.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
