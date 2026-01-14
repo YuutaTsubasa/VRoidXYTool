@@ -37,11 +37,16 @@ jobs:
     - name: Download BepInEx IL2CPP (core DLLs)
       shell: powershell
       run: |
-        Write-Host "Downloading BepInEx IL2CPP for core dependencies..."
-        $bepinexUrl = "https://github.com/BepInEx/BepInEx/releases/download/v6.0.0-pre.2/BepInEx_UnityIL2CPP_x64_6.0.0-pre.2.zip"
+        Write-Host "Downloading BepInEx IL2CPP Bleeding Edge for core dependencies..."
+        Write-Host "Note: Using bleeding edge build for metadata version 31 support (Unity 2022/2023)"
+        
+        # Get the latest bleeding edge build
+        # Note: This uses a specific known working build. For latest, check https://builds.bepinex.dev/projects/bepinex_be
+        $bepinexUrl = "https://builds.bepinex.dev/projects/bepinex_be/692/BepInEx_UnityIL2CPP_x64_b4a2024.zip"
         $bepinexZip = "bepinex.zip"
         
         try {
+          Write-Host "Downloading from: $bepinexUrl"
           Invoke-WebRequest -Uri $bepinexUrl -OutFile $bepinexZip -UseBasicParsing
           Expand-Archive -Path $bepinexZip -DestinationPath "bepinex_temp" -Force
           
@@ -51,8 +56,24 @@ jobs:
             Copy-Item -Path "bepinex_temp/BepInEx/core/*.dll" -Destination "lib/BepInEx/core/" -Force -ErrorAction SilentlyContinue
             Write-Host "BepInEx core DLLs copied to lib/BepInEx/core/"
           }
+          Write-Host "BepInEx bleeding edge build downloaded successfully"
         } catch {
-          Write-Host "::warning::Failed to download BepInEx: $_"
+          Write-Host "::warning::Failed to download BepInEx bleeding edge: $_"
+          Write-Host "::warning::Trying fallback to v6.0.0-pre.2 (may not support metadata v31)"
+          
+          # Fallback to older version
+          try {
+            $fallbackUrl = "https://github.com/BepInEx/BepInEx/releases/download/v6.0.0-pre.2/BepInEx_UnityIL2CPP_x64_6.0.0-pre.2.zip"
+            Invoke-WebRequest -Uri $fallbackUrl -OutFile $bepinexZip -UseBasicParsing
+            Expand-Archive -Path $bepinexZip -DestinationPath "bepinex_temp" -Force
+            
+            if (-not (Test-Path "lib/BepInEx/core/*.dll")) {
+              New-Item -ItemType Directory -Force -Path "lib/BepInEx/core" | Out-Null
+              Copy-Item -Path "bepinex_temp/BepInEx/core/*.dll" -Destination "lib/BepInEx/core/" -Force -ErrorAction SilentlyContinue
+            }
+            Write-Host "::warning::Using fallback version - may not work with VRoid Studio (needs metadata v31 support)"
+          } catch {
+            Write-Host "::error::Failed to download BepInEx: $_"
         }
         
     - name: List available dependencies

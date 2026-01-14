@@ -12,13 +12,25 @@
 从版本0.8.3开始，本插件已经支持VRoid Studio的IL2CPP版本（1.26.1及更高版本）。
 
 ### 安装要求
-1. 安装**BepInEx IL2CPP**版本（不是普通的Mono版本）
-2. 确保BepInEx已经生成了IL2CPP interop程序集（第一次运行VRoid Studio后自动生成）
-3. 将插件DLL放入`BepInEx\plugins`文件夹
+
+**重要：VRoid Studio 使用 Unity 2022/2023，需要支持 IL2CPP metadata version 31 的 BepInEx 版本**
+
+1. 下载并安装 **BepInEx IL2CPP Bleeding Edge** 版本：
+   - 访问 [BepInEx Bleeding Edge 构建服务器](https://builds.bepinex.dev/projects/bepinex_be)
+   - 下载最新的 `BepInEx_UnityIL2CPP_x64` 版本（bleeding edge）
+   - **不要使用** BepInEx 6.0.0-pre.2 或更早的稳定版本，它们只支持 metadata version 23-29
+   
+2. 安装 BepInEx：
+   - 解压到 VRoid Studio 安装目录
+   - 运行 VRoid Studio 一次，让 BepInEx 生成 IL2CPP interop 程序集
+   - 如果遇到 "Unsupported metadata version found! We support 23-29, got 31" 错误，说明您使用的 BepInEx 版本过旧
+
+3. 将插件 DLL 放入 `BepInEx\plugins` 文件夹
 
 ### 注意事项
-- 如果使用的是VRoid Studio 1.26.0或更早的Mono版本，请使用0.8.2或更早版本的插件
-- IL2CPP版本和Mono版本的插件**不能**互换使用
+- 如果使用的是 VRoid Studio 1.26.0 或更早的 Mono 版本，请使用 0.8.2 或更早版本的插件
+- IL2CPP 版本和 Mono 版本的插件**不能**互换使用
+- 必须使用支持 metadata version 31 的 BepInEx bleeding edge 版本
 
 ## 为什么在VRoid Studio 1.18版本之后用不了了？
 因为此版本的更新导致出现了一点问题，只需要改动一个设置即可。

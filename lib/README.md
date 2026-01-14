@@ -32,10 +32,17 @@ lib/
 
 ## How to Populate
 
+**IMPORTANT:** VRoid Studio uses Unity 2022/2023, which requires BepInEx bleeding edge builds that support IL2CPP metadata version 31.
+
 1. Install VRoid Studio 1.26.1 or later
-2. Install BepInEx IL2CPP (6.0.0-pre.2 or later) 
-3. Run VRoid Studio once to generate interop assemblies
-4. Copy files from your installation:
+2. Download and install **BepInEx IL2CPP Bleeding Edge** build:
+   - Visit [BepInEx Bleeding Edge Build Server](https://builds.bepinex.dev/projects/bepinex_be)
+   - Download the latest `BepInEx_UnityIL2CPP_x64` bleeding edge build
+   - **DO NOT use** BepInEx 6.0.0-pre.2 or earlier - they only support metadata versions 23-29
+3. Extract BepInEx to your VRoid Studio installation directory
+4. Run VRoid Studio once to generate interop assemblies
+   - If you see "Unsupported metadata version found! We support 23-29, got 31" error, your BepInEx version is too old
+5. Copy files from your installation:
    - From `VRoid Studio/BepInEx/core/` → `lib/BepInEx/core/`
    - From `VRoid Studio/BepInEx/interop/` → `lib/BepInEx/interop/`
 
