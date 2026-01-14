@@ -135,14 +135,25 @@ namespace VRoidXYTool
             Log.LogInfo("XYTool启动");
             
             // Add the MonoBehaviour component to the scene for Update() support
-            ClassInjector.RegisterTypeInIl2Cpp<XYToolMonoBehaviour>();
-            var go = new UnityEngine.GameObject("XYTool");
-            UnityEngine.Object.DontDestroyOnLoad(go);
-            go.AddComponent<XYToolMonoBehaviour>();
+            try
+            {
+                ClassInjector.RegisterTypeInIl2Cpp<XYToolMonoBehaviour>();
+                var go = new UnityEngine.GameObject("XYTool");
+                UnityEngine.Object.DontDestroyOnLoad(go);
+                go.AddComponent<XYToolMonoBehaviour>();
+            }
+            catch (Exception ex)
+            {
+                Log.LogError($"Failed to register IL2CPP MonoBehaviour: {ex}");
+            }
         }
     }
     
-    // MonoBehaviour component for Unity lifecycle methods
+    /// <summary>
+    /// MonoBehaviour component for Unity lifecycle methods in IL2CPP.
+    /// This is required because BasePlugin doesn't inherit from MonoBehaviour in IL2CPP,
+    /// so we need a separate MonoBehaviour to handle Unity's Update/Start callbacks.
+    /// </summary>
     public class XYToolMonoBehaviour : MonoBehaviour
     {
         public XYToolMonoBehaviour(IntPtr ptr) : base(ptr) { }
